@@ -4,6 +4,7 @@ from app.models.stock import Stock
 
 
 async def get_stock(ticker):
+    ticker = ticker.upper()
     stock = await Stock.find_one({"ticker": ticker})
     return stock
 
