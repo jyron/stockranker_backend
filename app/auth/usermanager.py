@@ -1,3 +1,5 @@
+"""User authentication manager."""
+
 from typing import Optional
 from beanie import PydanticObjectId
 from fastapi import Depends, Request

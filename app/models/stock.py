@@ -1,3 +1,5 @@
+"""Stock model."""
+
 from beanie import Document
 from typing import Optional
 

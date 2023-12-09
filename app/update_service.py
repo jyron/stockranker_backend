@@ -1,3 +1,5 @@
+"""Update service for stock data."""
+
 import asyncio
 import time
 

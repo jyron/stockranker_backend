@@ -1,3 +1,5 @@
+"""Stocks router endpoints."""
+
 from fastapi import APIRouter
 from app.crud.stocks import get_all_stocks
 from app.models.stock import Stock

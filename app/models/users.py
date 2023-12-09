@@ -1,3 +1,5 @@
+"""User model."""
+
 from fastapi_users_db_beanie import BeanieBaseUser
 from beanie import Document
 

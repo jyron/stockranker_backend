@@ -1,3 +1,5 @@
+"""User routes endpoints."""
+
 from fastapi import APIRouter
 
 from app.auth.usermanager import auth_backend, fastapi_users

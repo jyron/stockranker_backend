@@ -1,4 +1,4 @@
-# get aall stocks from database
+"""CRUD operations for stocks."""
 
 from app.models.stock import Stock
 
