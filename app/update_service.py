@@ -11,7 +11,7 @@ from app import config
 from app.models.stock import Stock
 
 finnhub_client = finnhub.Client(api_key=config.FINNHUB_API_KEY)
-update_router = APIRouter()
+update_router = APIRouter(tags=["update"])
 
 
 async def get_sp500_tickers():
