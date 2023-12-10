@@ -1,4 +1,4 @@
-"""User routes endpoints."""
+"""User routers endpoints."""
 
 from fastapi import APIRouter
 
