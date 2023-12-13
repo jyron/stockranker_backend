@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import init_database
 from app.routers.stocks import stock_router
@@ -14,11 +15,19 @@ from app.update_service import update_router
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await init_database()
-    await setup_scheduler()
+    # await setup_scheduler()
     yield
 
 
 app = FastAPI(lifespan=lifespan)
+origins = ["http://localhost:5173"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.include_router(user_router, prefix="/api/v0")
 app.include_router(stock_router, prefix="/api/v0")
 app.include_router(update_router, prefix="/api/v0")
