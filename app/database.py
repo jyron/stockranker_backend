@@ -4,12 +4,13 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel
 from app.models.users import User
 from app.models.stock import Stock
+from app.models.likes import UserLikes
 from app import config
 
 
 async def init_database():
     client = AsyncIOMotorClient(config.MONGO_URI)
-    document_models = [User, Stock]
+    document_models = [User, Stock, UserLikes]
     await init_beanie(
         database=client[config.DATABASE_NAME], document_models=document_models
     )
