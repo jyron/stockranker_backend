@@ -46,6 +46,12 @@ async def update_stock_price(ticker):
     price = finnhub_client.quote(ticker)
     stock = await Stock.find_one({"ticker": ticker})
     stock.price = price["c"]
+    stock.price_change = price["d"]
+    stock.percent_change = price["dp"]
+    stock.high_price_today = price["h"]
+    stock.low_price_today = price["l"]
+    stock.open_price_today = price["o"]
+    stock.previous_close_price = price["pc"]
     print(f"{stock.name} price updated: {stock.price}")
     await stock.save()
 
@@ -54,6 +60,6 @@ async def update_stock_prices(tickers):
     for ticker in tickers:
         try:
             await update_stock_price(ticker)
-            time.sleep(1)
+            time.sleep(1.001)
         except Exception as e:
             print(e, ticker)
