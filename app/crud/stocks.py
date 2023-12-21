@@ -13,6 +13,11 @@ async def get_stock(ticker):
     return stock
 
 
+async def get_stock_by_id(stock_id: PydanticObjectId):
+    stock = await Stock.find_one(Stock.id == stock_id)
+    return stock
+
+
 async def get_all_stocks():
     stocks = await Stock.find().to_list(length=1000)
     return stocks
