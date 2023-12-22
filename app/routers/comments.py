@@ -1,9 +1,10 @@
 from app.models.comment import Comment
 from app.crud.comments import (
+    add_reply_to_comment,
     create_comment,
     find_comment_by_id,
-    reply_to_comment,
     add_comment_to_stock,
+    create_reply,
 )
 from fastapi import APIRouter, HTTPException, Depends, Body
 from beanie import PydanticObjectId
@@ -34,20 +35,20 @@ async def add_comment(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@comment_router.get("/reply_comment")
+@comment_router.post("/reply_comment")
 async def get_reply_comment(
-    comment_id: PydanticObjectId,
     reply_data=Body(...),
     user=Depends(current_active_user),
 ):
-    content = reply_data["comment"]
+    content = reply_data["content"]
+    comment_id = reply_data["comment_id"]
     stock_id = reply_data["stock_id"]
     user_id = user.id
     try:
-        reply = await create_comment(
-            user_id=user_id, stock_id=stock_id, content=content
-        )
+        reply = Comment(stock_id=stock_id, user_id=user_id, content=content)
+        await reply.insert()
         comment = await find_comment_by_id(comment_id)
-        await reply_to_comment(reply, comment)
+        replied_comment = await add_reply_to_comment(reply, comment)
+        return replied_comment
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        print(e)

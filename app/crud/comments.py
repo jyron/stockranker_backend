@@ -5,8 +5,8 @@ from beanie import PydanticObjectId
 from app.crud.stocks import get_stock_by_id
 
 
-async def find_comment_by_id(comment_id: PydanticObjectId) -> Comment:
-    comment = await Comment.find_one(Comment.id == comment_id)
+async def find_comment_by_id(comment_id: str) -> Comment:
+    comment = await Comment.find_one({"_id": PydanticObjectId(comment_id)})
     return comment
 
 
@@ -20,13 +20,19 @@ async def create_comment(
     return new_comment
 
 
+async def create_reply(stock_id: str, content: str, user_id: str) -> Comment:
+    new_comment = Comment(stock_id=stock_id, user_id=user_id, content=content)
+    await new_comment.insert()
+    return new_comment
+
+
 async def add_comment_to_stock(comment: Comment, stock: Stock) -> Stock:
     stock.comments.append(comment)
     await stock.save()
     return stock
 
 
-async def reply_to_comment(reply: Comment, comment: Comment) -> Comment:
+async def add_reply_to_comment(reply: Comment, comment: Comment) -> Comment:
     comment.replies.append(reply)
     await comment.save()
     return comment
