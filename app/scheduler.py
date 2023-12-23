@@ -19,12 +19,12 @@ async def setup_scheduler():
         run_date=initial_run_time,
         args=[tickers],
     )
-    # scheduler.add_job(
-    #     update_stock_prices,
-    #     "interval",
-    #     minutes=30,
-    #     args=[tickers],
-    #     next_run_time=initial_run_time,
-    #     depends_on="create_stock_profiles",
-    # )
+    scheduler.add_job(
+        update_stock_prices,
+        "interval",
+        minutes=30,
+        args=[tickers],
+        next_run_time=initial_run_time,
+        depends_on="create_stock_profiles",
+    )
     scheduler.start()

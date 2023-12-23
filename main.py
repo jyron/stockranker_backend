@@ -16,7 +16,7 @@ from app.routers.comments import comment_router
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await init_database()
-    await setup_scheduler()
+    # await setup_scheduler()
     yield
 
 
