@@ -40,6 +40,7 @@ async def create_stock_profiles(tickers):
             await create_stock_profile(ticker)
         except Exception as e:
             print(e, ticker)
+    return {"message": "Stock profiles created"}
 
 
 async def update_stock_price(ticker):
@@ -63,3 +64,4 @@ async def update_stock_prices(tickers):
             time.sleep(1.001)
         except Exception as e:
             print(e, ticker)
+    return {"message": "Stock prices updated"}

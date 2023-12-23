@@ -30,7 +30,9 @@ async def add_comment(
             user_id=user_id, stock_id=stock_id, content=content
         )
         stock = await Stock.find_one(Stock.id == comment.stock_id)
-        await add_comment_to_stock(comment, stock)
+        new = await add_comment_to_stock(comment, stock)
+        print(new.comments)
+        return new.comments
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

@@ -16,12 +16,17 @@ from app.routers.comments import comment_router
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await init_database()
-    # await setup_scheduler()
+    await setup_scheduler()
     yield
 
 
 app = FastAPI(lifespan=lifespan)
-origins = ["http://localhost:5173"]
+origins = [
+    "https://stockranker.co",
+    "http://stockranker.co",
+    "https://wwww.stockranker.co",
+    "http://www.stockranker.co",
+]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
