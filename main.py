@@ -21,12 +21,13 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-origins = [
-    "https://stockranker.co",
-    "http://stockranker.co",
-    "https://wwww.stockranker.co",
-    "http://www.stockranker.co",
-]
+# origins = [
+#     "https://stockranker.co",
+#     "http://stockranker.co",
+#     "https://www.stockranker.co",
+#     "http://www.stockranker.co",
+# ]
+origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
