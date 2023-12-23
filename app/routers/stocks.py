@@ -35,3 +35,9 @@ async def dislike_one_stock(
 ):
     await like_stock(user_id=user.id, stock_id=stock_id, liked=False)
     await update_stock_likes(stock_id)
+
+
+@stock_router.get("/stocks/comments/{stock_id}")
+async def get_stock_comments(stock_id: PydanticObjectId):
+    stock = await Stock.find_one(Stock.id == stock_id)
+    return stock.comments
