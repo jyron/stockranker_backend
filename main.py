@@ -11,6 +11,7 @@ from app.routers.users import user_router
 from app.scheduler import setup_scheduler
 from app.update_service import update_router
 from app.routers.comments import comment_router
+from app.routers.alphavantage import avrouter
 
 
 @asynccontextmanager
@@ -28,6 +29,7 @@ origins = [
     "http://www.stockranker.co",
     "localhost:5173",
     "https://main--whimsical-monstera-b5072e.netlify.app",
+    "http://localhost:5173/",
 ]
 origins = origins
 app.add_middleware(
@@ -41,6 +43,7 @@ app.include_router(user_router, prefix="/api/v0")
 app.include_router(stock_router, prefix="/api/v0")
 app.include_router(update_router, prefix="/api/v0")
 app.include_router(comment_router, prefix="/api/v0")
+app.include_router(avrouter, prefix="/api/v0")
 
 # if __name__ == "__main__":
 #     uvicorn.run(
