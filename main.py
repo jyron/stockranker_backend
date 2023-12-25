@@ -29,9 +29,9 @@ origins = [
     "http://www.stockranker.co",
     "localhost:5173",
     "https://main--whimsical-monstera-b5072e.netlify.app",
-    "http://localhost:5173/",
+    "http://localhost:5173",
 ]
-origins = origins
+origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
