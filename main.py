@@ -26,6 +26,8 @@ origins = [
     "http://stockranker.co",
     "https://www.stockranker.co",
     "http://www.stockranker.co",
+    "localhost:5173",
+    "https://main--whimsical-monstera-b5072e.netlify.app",
 ]
 origins = origins
 app.add_middleware(
