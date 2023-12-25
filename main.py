@@ -21,13 +21,13 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-# origins = [
-#     "https://stockranker.co",
-#     "http://stockranker.co",
-#     "https://www.stockranker.co",
-#     "http://www.stockranker.co",
-# ]
-origins = ["*"]
+origins = [
+    "https://stockranker.co",
+    "http://stockranker.co",
+    "https://www.stockranker.co",
+    "http://www.stockranker.co",
+]
+origins = origins
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -40,9 +40,9 @@ app.include_router(stock_router, prefix="/api/v0")
 app.include_router(update_router, prefix="/api/v0")
 app.include_router(comment_router, prefix="/api/v0")
 
-if __name__ == "__main__":
-    uvicorn.run(
-        "main:app",
-        log_level="info",
-        reload=True,
-    )
+# if __name__ == "__main__":
+#     uvicorn.run(
+#         "main:app",
+#         log_level="info",
+#         reload=True,
+#     )

@@ -61,7 +61,14 @@ async def update_stock_prices(tickers):
     for ticker in tickers:
         try:
             await update_stock_price(ticker)
-            time.sleep(1.001)
+            time.sleep(1.1)
         except Exception as e:
             print(e, ticker)
+    return {"message": "Stock prices updated"}
+
+
+@update_router.get("/update_prices")
+async def update_prices():
+    tickers = await get_sp500_tickers()
+    await update_stock_prices(tickers)
     return {"message": "Stock prices updated"}
