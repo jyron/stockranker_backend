@@ -31,7 +31,7 @@ origins = [
     "https://main--whimsical-monstera-b5072e.netlify.app",
     "http://localhost:5173",
 ]
-origins = origins
+origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
