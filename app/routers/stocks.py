@@ -12,8 +12,8 @@ stock_router = APIRouter(tags=["stocks"])
 
 
 @stock_router.get("/stocks")
-async def get_stocks():
-    stocks = await get_all_stocks()
+async def get_stocks_in_order_of_likes():
+    stocks = await Stock.find().sort(-Stock.marketCapitalization).to_list(length=1000)
     return stocks
 
 
