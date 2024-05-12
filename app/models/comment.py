@@ -11,3 +11,8 @@ class Comment(Document):
     dislikes: Optional[int] = 0
     replies: List["Comment"] = []
     created_at: Optional[datetime] = datetime.now(timezone.utc)
+
+    def increment_likes(self):
+        self.likes += 1
+        return self.save()
+

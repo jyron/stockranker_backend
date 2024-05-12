@@ -5,7 +5,7 @@ import json
 from pprint import pprint
 
 ALPHAVANTAGE_API_KEY = config.ALPHAVANTAGE_API_KEY
-
+# Hello
 avrouter = APIRouter(tags=["alphavantage"])
 
 
@@ -26,3 +26,12 @@ async def get_news():
     stories = news_data["feed"]
     # pprint(stories[:10])
     return stories[:10]
+
+
+@avrouter.get("/thirty_day")
+async def get_thirty_day():
+    data = "app/thirty_day.json"
+
+    with open(data, "r") as json_file:
+        thirty_day = json.load(json_file)
+    return thirty_day

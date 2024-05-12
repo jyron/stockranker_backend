@@ -41,3 +41,4 @@ async def dislike_one_stock(
 async def get_stock_comments(stock_id: PydanticObjectId):
     stock = await Stock.find_one(Stock.id == stock_id)
     return stock.comments
+

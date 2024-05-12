@@ -13,13 +13,17 @@ from app.models.stock import Stock
 finnhub_client = finnhub.Client(api_key=config.FINNHUB_API_KEY)
 update_router = APIRouter(tags=["update"])
 
+# This api is depecreated without warning: https://datahub.io/core/s-and-p-500-companies
+# async def get_sp500_tickers():
+#     package = Package("https://datahub.io/core/s-and-p-500-companies/datapackage.json")
+#     stocks = package.get_resource("constituents").read(keyed=True)
+#     tickers = [stock["Symbol"] for stock in stocks]
+#     return tickers
 
-async def get_sp500_tickers():
-    package = Package("https://datahub.io/core/s-and-p-500-companies/datapackage.json")
-    stocks = package.get_resource("constituents").read(keyed=True)
-    tickers = [stock["Symbol"] for stock in stocks]
+async def get_stored_tickers():
+    stocks = await Stock.find().to_list()
+    tickers = [stock.ticker for stock in stocks]
     return tickers
-
 
 async def create_stock_profile(ticker):
     existing_stock = await Stock.find_one({"ticker": ticker})
@@ -69,6 +73,11 @@ async def update_stock_prices(tickers):
 
 @update_router.get("/update_prices")
 async def update_prices():
-    tickers = await get_sp500_tickers()
+    tickers = await get_stored_tickers()
     await update_stock_prices(tickers)
     return {"message": "Stock prices updated"}
+
+@update_router.get("/show_tickers") 
+async def update_prices():
+    tickers = await get_stored_tickers()
+    return tickers

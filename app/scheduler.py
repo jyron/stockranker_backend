@@ -3,7 +3,7 @@
 from datetime import datetime, timedelta
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from app.update_service import (
-    get_sp500_tickers,
+    get_stored_tickers,
     update_stock_prices,
     create_stock_profiles,
 )
@@ -12,7 +12,7 @@ from app.update_service import (
 async def setup_scheduler():
     scheduler = AsyncIOScheduler()
     initial_run_time = datetime.now() + timedelta(seconds=5)
-    tickers = await get_sp500_tickers()
+    tickers = await get_stored_tickers()
     scheduler.add_job(
         create_stock_profiles,
         "date",
